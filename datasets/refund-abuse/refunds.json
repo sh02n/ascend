@@ -1,0 +1,4 @@
+[
+  { "id": "refund_ra_1", "orderId": "order_ra_1", "amount": 119.0, "reason": "item not received" },
+  { "id": "refund_ra_2", "orderId": "order_ra_2", "amount": 88.0, "reason": "damaged item" }
+]

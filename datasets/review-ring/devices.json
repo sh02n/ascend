@@ -1,0 +1,4 @@
+[
+  { "id": "device_rr_1", "buyerId": "buyer_rr_1", "fingerprint": "device-group-1" },
+  { "id": "device_rr_2", "buyerId": "buyer_rr_2", "fingerprint": "device-group-1" }
+]

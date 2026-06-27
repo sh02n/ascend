@@ -1,0 +1,4 @@
+[
+  { "id": "order_ra_1", "buyerId": "buyer_ra_1", "sellerId": "seller_shared_1", "amount": 119.0, "status": "refunded" },
+  { "id": "order_ra_2", "buyerId": "buyer_ra_1", "sellerId": "seller_shared_2", "amount": 88.0, "status": "refunded" }
+]

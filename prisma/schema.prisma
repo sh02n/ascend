@@ -1,0 +1,231 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Session {
+  id          String   @id @default(cuid())
+  scenarioId  String
+  status      String   @default("loaded")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("sessions")
+}
+
+model Buyer {
+  id         String   @id @default(cuid())
+  externalId String   @unique
+  name       String
+  scenarioId String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("buyers")
+}
+
+model Seller {
+  id         String   @id @default(cuid())
+  externalId String   @unique
+  name       String
+  scenarioId String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("sellers")
+}
+
+model Order {
+  id         String   @id @default(cuid())
+  externalId String   @unique
+  buyerId    String?
+  sellerId   String?
+  amount     Float?
+  status     String?
+  scenarioId String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("orders")
+}
+
+model Review {
+  id         String   @id @default(cuid())
+  externalId String   @unique
+  orderId    String?
+  buyerId    String?
+  sellerId   String?
+  rating     Int?
+  body       String?
+  scenarioId String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("reviews")
+}
+
+model Refund {
+  id         String   @id @default(cuid())
+  externalId String   @unique
+  orderId    String?
+  amount     Float?
+  reason     String?
+  scenarioId String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("refunds")
+}
+
+model PaymentMethod {
+  id         String   @id @default(cuid())
+  externalId String   @unique
+  orderId    String?
+  buyerId    String?
+  provider   String?
+  last4      String?
+  scenarioId String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("payment_methods")
+}
+
+model Device {
+  id          String   @id @default(cuid())
+  externalId  String   @unique
+  buyerId     String?
+  sellerId    String?
+  fingerprint String?
+  scenarioId  String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("devices")
+}
+
+model Address {
+  id         String   @id @default(cuid())
+  externalId String   @unique
+  buyerId    String?
+  sellerId   String?
+  line1      String?
+  city       String?
+  region     String?
+  country    String?
+  scenarioId String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("addresses")
+}
+
+model IPAddress {
+  id         String   @id @default(cuid())
+  externalId String   @unique
+  buyerId    String?
+  sellerId   String?
+  ip         String
+  scenarioId String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("ip_addresses")
+}
+
+model GraphNode {
+  id         String   @id @default(cuid())
+  externalId String   @unique
+  entityType String
+  label      String
+  scenarioId String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("graph_nodes")
+}
+
+model GraphEdge {
+  id           String   @id @default(cuid())
+  externalId   String   @unique
+  sourceNodeId String
+  targetNodeId String
+  relationship String
+  scenarioId   String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("graph_edges")
+}
+
+model Cluster {
+  id         String   @id @default(cuid())
+  externalId String   @unique
+  label      String
+  scenarioId String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("clusters")
+}
+
+model Signal {
+  id         String   @id @default(cuid())
+  externalId String   @unique
+  label      String
+  severity   String?
+  scenarioId String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("signals")
+}
+
+model Risk {
+  id         String   @id @default(cuid())
+  externalId String   @unique
+  score      Float?
+  status     String?
+  scenarioId String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("risk")
+}
+
+model Investigation {
+  id         String   @id @default(cuid())
+  caseId     String?
+  summary    String?
+  status     String?
+  scenarioId String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("investigations")
+}
+
+model Case {
+  id         String   @id @default(cuid())
+  externalId String   @unique
+  status     String
+  scenarioId String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("cases")
+}
+
+model Report {
+  id         String   @id @default(cuid())
+  caseId     String
+  scenarioId String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("reports")
+}

@@ -1,0 +1,4 @@
+[
+  { "id": "address_rr_1", "buyerId": "buyer_rr_1", "line1": "10 Cedar St", "city": "Austin", "region": "TX", "country": "US" },
+  { "id": "address_rr_2", "buyerId": "buyer_rr_2", "line1": "10 Cedar St", "city": "Austin", "region": "TX", "country": "US" }
+]

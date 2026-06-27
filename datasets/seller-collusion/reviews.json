@@ -1,0 +1,4 @@
+[
+  { "id": "review_sc_1", "orderId": "order_sc_1", "buyerId": "buyer_sc_1", "sellerId": "seller_sc_1", "rating": 5, "body": "Great merchant and quick shipping." },
+  { "id": "review_sc_2", "orderId": "order_sc_2", "buyerId": "buyer_sc_2", "sellerId": "seller_sc_2", "rating": 5, "body": "Smooth purchase and excellent service." }
+]

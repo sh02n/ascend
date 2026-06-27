@@ -1,0 +1,4 @@
+[
+  { "id": "ip_rr_1", "buyerId": "buyer_rr_1", "ip": "203.0.113.10" },
+  { "id": "ip_rr_2", "buyerId": "buyer_rr_2", "ip": "203.0.113.10" }
+]

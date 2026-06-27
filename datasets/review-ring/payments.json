@@ -1,0 +1,4 @@
+[
+  { "id": "payment_rr_1", "orderId": "order_rr_1", "buyerId": "buyer_rr_1", "provider": "visa", "last4": "4242" },
+  { "id": "payment_rr_2", "orderId": "order_rr_2", "buyerId": "buyer_rr_2", "provider": "visa", "last4": "4242" }
+]
