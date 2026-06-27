@@ -86,12 +86,21 @@ export interface AiInvestigationReport {
   suggestedQuestions: SuggestedQuestion[];
 }
 
-export interface InvestigateBody {
+export interface InvestigateApiRequest {
   cluster: InvestigationCluster;
 }
 
-export interface ExplainBody {
+export interface InvestigateApiResponse {
+  investigation: AiInvestigationReport;
+}
+
+export interface ExplainApiRequest {
   question: string;
   cluster: InvestigationCluster;
   investigation: AiInvestigationReport;
+}
+
+export interface ExplainApiResponse {
+  answer: string;
+  source?: "openai" | "fallback_mock";
 }

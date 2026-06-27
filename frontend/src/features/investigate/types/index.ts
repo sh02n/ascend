@@ -1,8 +1,9 @@
-export interface ExplainRequest {
-  caseId: string;
-}
-
-export interface InvestigationResult {
-  investigationId?: string;
-  summary?: string;
-}
+export type {
+  AiInvestigationReport,
+  ExplainApiRequest,
+  ExplainApiResponse,
+  InvestigateApiRequest,
+  InvestigateApiResponse,
+  InvestigationCluster,
+  SuggestedQuestion,
+} from "../../../types/investigation";

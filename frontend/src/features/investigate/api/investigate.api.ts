@@ -1,16 +1,33 @@
 import { apiClient } from "../../../shared/lib/apiClient";
-import type { ExplainRequest, InvestigationResult } from "../types";
+import type {
+  ExplainApiRequest,
+  ExplainApiResponse,
+  InvestigateApiRequest,
+  InvestigateApiResponse,
+} from "../../../types/investigation";
 
-export async function investigateCase(payload: Record<string, unknown>) {
-  return apiClient<InvestigationResult>("/investigate", {
+export async function investigateCluster(payload: InvestigateApiRequest) {
+  const response = await apiClient<InvestigateApiResponse>("/investigate", {
     method: "POST",
     body: JSON.stringify(payload),
   });
+
+  if (!response?.investigation) {
+    throw new Error("The investigation service returned an empty response.");
+  }
+
+  return response.investigation;
 }
 
-export async function explainCase(payload: ExplainRequest) {
-  return apiClient<InvestigationResult>("/explain", {
+export async function explainInvestigation(payload: ExplainApiRequest) {
+  const response = await apiClient<ExplainApiResponse>("/explain", {
     method: "POST",
     body: JSON.stringify(payload),
   });
+
+  if (!response?.answer) {
+    throw new Error("The explanation service returned an empty response.");
+  }
+
+  return response;
 }

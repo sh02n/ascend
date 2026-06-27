@@ -6,7 +6,10 @@ dotenv.config();
 const envSchema = z.object({
   PORT: z.coerce.number().default(3001),
   DATABASE_URL: z.string().min(1),
-  OPENAI_API_KEY: z.string().min(1),
+  OPENAI_API_KEY: z.preprocess(
+    (value) => (value === "" ? undefined : value),
+    z.string().min(1).optional(),
+  ),
   CLIENT_ORIGIN: z.string().default("http://localhost:5173"),
 });
 
