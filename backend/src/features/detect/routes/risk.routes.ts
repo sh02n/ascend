@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { asyncHandler } from "../../../utils/asyncHandler.js";
-import { riskController } from "../controllers/risk.controller.js";
+import { getRisk } from "../controllers/risk.controller.js";
 
 export const detectRiskRouter = Router();
 
-detectRiskRouter.get("/risk/:id", asyncHandler(riskController.getRisk));
+detectRiskRouter.get("/risk/:clusterId", asyncHandler(getRisk));
