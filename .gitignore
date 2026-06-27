@@ -8,3 +8,5 @@ coverage
 frontend/dist
 backend/dist
 prisma/dev.db
+package-lock.json
+
