@@ -229,3 +229,138 @@ model Report {
 
   @@map("reports")
 }
+model ImportSession {
+  id        String            @id @default(cuid())
+  sector    String
+  status    String            @default("created")
+  datasets  ImportedDataset[]
+  investigationDatasets InvestigationDataset[]
+  transformationLogs TransformationLog[]
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+
+  @@map("import_sessions")
+}
+
+model ImportedDataset {
+  id              String        @id @default(cuid())
+  sessionId       String
+  session         ImportSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  filename        String
+  filesize        Int
+  mimetype        String?
+  sourceType      String
+  status          String        @default("uploaded")
+  profiles        DatasetProfile[]
+  validationReports ValidationReport[]
+  analyses        DatasetAnalysis[]
+  fieldMappings   FieldMapping[]
+  investigationDatasets InvestigationDataset[]
+  transformationLogs TransformationLog[]
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@index([sessionId])
+  @@map("imported_datasets")
+}
+
+model DatasetProfile {
+  id              String          @id @default(cuid())
+  datasetId       String
+  dataset         ImportedDataset @relation(fields: [datasetId], references: [id], onDelete: Cascade)
+  rowCount        Int
+  columnCount     Int
+  headersJson     String
+  previewRowsJson String
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  @@index([datasetId])
+  @@map("dataset_profiles")
+}
+
+model ValidationReport {
+  id              String          @id @default(cuid())
+  datasetId       String
+  dataset         ImportedDataset @relation(fields: [datasetId], references: [id], onDelete: Cascade)
+  rowCount        Int
+  columnCount     Int
+  missingValues   Int
+  duplicateRows   Int
+  emptyCells      Int
+  qualityScore    Int
+  summary         String
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  @@index([datasetId])
+  @@map("validation_reports")
+}
+model DatasetAnalysis {
+  id                  String          @id @default(cuid())
+  datasetId           String
+  dataset             ImportedDataset @relation(fields: [datasetId], references: [id], onDelete: Cascade)
+  detectedDatasetType String
+  confidence          Int
+  entitiesJson        String
+  summary             String
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
+
+  @@index([datasetId])
+  @@map("dataset_analyses")
+}
+
+model FieldMapping {
+  id           String          @id @default(cuid())
+  datasetId    String
+  dataset      ImportedDataset @relation(fields: [datasetId], references: [id], onDelete: Cascade)
+  sourceField  String
+  targetField  String
+  confidence   Int
+  status       String
+  userOverride String?
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+
+  @@index([datasetId])
+  @@map("field_mappings")
+}
+model InvestigationDataset {
+  id                 String          @id @default(cuid())
+  sessionId          String
+  session            ImportSession   @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  datasetId          String
+  dataset            ImportedDataset @relation(fields: [datasetId], references: [id], onDelete: Cascade)
+  mappingVersion     String
+  recordCount        Int
+  outputFormat       String
+  exportMetadataJson String
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+
+  @@index([sessionId])
+  @@index([datasetId])
+  @@map("investigation_datasets")
+}
+
+model TransformationLog {
+  id           String           @id @default(cuid())
+  sessionId    String
+  session      ImportSession    @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  datasetId    String
+  dataset      ImportedDataset  @relation(fields: [datasetId], references: [id], onDelete: Cascade)
+  step         String
+  status       String
+  message      String
+  metadataJson String?
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+
+  @@index([sessionId])
+  @@index([datasetId])
+  @@map("transformation_logs")
+}
+
+
+

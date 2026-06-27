@@ -6,9 +6,11 @@ import { detectRiskRouter } from "./detect/routes/risk.routes.js";
 import { investigateRouter } from "./investigate/routes/investigation.routes.js";
 import { dashboardRouter } from "./dashboard/routes/dashboard.routes.js";
 import { reportRouter } from "./dashboard/routes/report.routes.js";
+import { importRouter } from "./import/routes/import.routes.js";
 
 export function registerFeatureRoutes(app: Express) {
   app.use("/api", scenarioRouter);
+  app.use("/api", importRouter);
   app.use("/api", graphRouter);
   app.use("/api", detectClusterRouter);
   app.use("/api", detectRiskRouter);
