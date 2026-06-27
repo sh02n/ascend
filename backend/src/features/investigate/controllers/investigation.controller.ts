@@ -1,15 +1,12 @@
 import type { Request, Response } from "express";
-import { investigateRepository } from "../repositories/investigate.repository.js";
+import { generateInvestigation } from "../services/investigationService.js";
+import type { InvestigateBody } from "../types/index.js";
 
 export const investigationController = {
   async investigate(req: Request, res: Response) {
-    const { caseId } = req.body;
-    const investigation = await investigateRepository.createInvestigation(caseId);
+    const { cluster } = req.body as InvestigateBody;
+    const investigation = await generateInvestigation(cluster);
 
-    // TODO: coordinate evidence, pattern checks, and recommendation generation.
-    res.status(202).json({
-      message: "Investigation placeholder",
-      data: investigation,
-    });
+    res.status(200).json({ investigation });
   },
 };
