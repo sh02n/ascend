@@ -29,6 +29,9 @@ const ReportPage = lazy(() =>
 const VerifyPage = lazy(() =>
   import("../../features/consumer/verify/VerifyPage").then((module) => ({ default: module.VerifyPage })),
 );
+const CompareListingsPage = lazy(() =>
+  import("../../features/consumer/compare/CompareListingsPage").then((module) => ({ default: module.CompareListingsPage })),
+);
 const AnalysisPage = lazy(() =>
   import("../../features/consumer/analysis/AnalysisPage").then((module) => ({ default: module.AnalysisPage })),
 );
@@ -133,6 +136,7 @@ export function AppRouter() {
 
             <Route element={<RoleGate requiredRole="consumer" />}>
               <Route path="/verify" element={<VerifyPage />} />
+              <Route path="/compare" element={<CompareListingsPage />} />
               <Route path="/analysis" element={<Navigate to="/verify" replace />} />
               <Route path="/analysis/:sessionId" element={<AnalysisPage />} />
               <Route path="/insights" element={<Navigate to="/verify" replace />} />

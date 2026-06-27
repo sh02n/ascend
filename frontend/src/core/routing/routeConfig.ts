@@ -5,5 +5,8 @@ export const navigationLinksByRole: Record<ProductRole, Array<{ to: string; labe
     { to: "/import", label: "Import" },
     { to: "/scenario", label: "Start" },
   ],
-  consumer: [{ to: "/verify", label: "Verify" }],
+  consumer: [
+    { to: "/verify", label: "Verify" },
+    { to: "/compare", label: "Compare" },
+  ],
 };
