@@ -5,12 +5,31 @@ import { registerFeatureRoutes } from "./features/index.js";
 import { errorHandler } from "./middleware/errorHandler.js";
 import { notFound } from "./middleware/notFound.js";
 
+function createAllowedOrigins() {
+  const configuredOrigin = env.CLIENT_ORIGIN;
+  const alternateOrigin = configuredOrigin.includes("localhost")
+    ? configuredOrigin.replace("localhost", "127.0.0.1")
+    : configuredOrigin.includes("127.0.0.1")
+      ? configuredOrigin.replace("127.0.0.1", "localhost")
+      : configuredOrigin;
+
+  return new Set([configuredOrigin, alternateOrigin]);
+}
+
 export function createApp() {
   const app = express();
+  const allowedOrigins = createAllowedOrigins();
 
   app.use(
     cors({
-      origin: env.CLIENT_ORIGIN,
+      origin(origin, callback) {
+        if (!origin || allowedOrigins.has(origin)) {
+          callback(null, true);
+          return;
+        }
+
+        callback(new Error("Origin not allowed by CORS"));
+      },
     }),
   );
   app.use(express.json());

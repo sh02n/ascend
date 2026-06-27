@@ -2,9 +2,9 @@
 
 ## Principles
 
-- Keep the architecture simple for fast hackathon development.
-- Keep merge conflicts low by isolating work inside feature folders.
-- Avoid cross-feature coupling unless the integration is shared UI or shared DB access.
+- Keep the architecture simple for cohesive product development.
+- Keep business and consumer experiences separate at the frontend while sharing backend engines and data.
+- Avoid cross-feature coupling unless the integration is shared UI, routing/session infrastructure, or shared DB access.
 - Do not create mocks, fake endpoints, or duplicate datasets.
 - Make the seeded database the shared integration contract for all features.
 
@@ -20,8 +20,7 @@
 - `datasets/` stores reusable raw event datasets.
 - `scenarios/` stores deterministic scenario metadata and dataset pointers.
 - `prisma/seeds/` stores seed import scaffolding and graph generation entrypoints.
-- Person 1 owns ingestion and scenario setup.
-- Persons 2 to 4 read from shared DB tables only.
+- Shared ingestion, graph, detection, risk, and investigation services support both product experiences.
 
 ## Frontend Flow
 
@@ -30,16 +29,17 @@
 3. API layer calls backend endpoints.
 4. Types document request and response contracts.
 
-## Ownership Split
+## Product Split
 
-- Person 1: `datasets/`, `scenarios/`, `prisma/seeds/`, scenario routes
-- Person 2: detection feature, DB readers for clusters/signals/risk
-- Person 3: investigation feature, DB readers for clusters/signals/risk outputs
-- Person 4: dashboard feature, DB readers for graph/investigation/report outputs
+- Frontend business experience lives in `frontend/src/features/business/`.
+- Frontend consumer experience lives in `frontend/src/features/consumer/`.
+- Frontend routing, role storage, and shared API helpers live in `frontend/src/core/`.
+- Backend shared capabilities live in `backend/src/features/shared/`.
+- Backend business presentation routes live in `backend/src/features/business/`.
 
 ## TODO
 
 - Add validation strategy.
-- Add auth if needed.
-- Add feature-specific prompt templates in `backend/src/features/investigate/prompts`.
-- Finalize relational links in Prisma once the team agrees on ingestion rules.
+- Expand consumer verification once the lightweight flow is approved.
+- Add feature-specific prompt templates in `backend/src/features/shared/investigate/prompts`.
+- Finalize relational links in Prisma once ingestion rules are stable.

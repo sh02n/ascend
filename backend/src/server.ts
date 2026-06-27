@@ -3,6 +3,4 @@ import { env } from "./config/env.js";
 
 const app = createApp();
 
-app.listen(env.PORT, () => {
-  console.log(`Backend server listening on http://localhost:${env.PORT}`);
-});
+app.listen(env.PORT);

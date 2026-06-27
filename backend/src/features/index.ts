@@ -1,22 +1,11 @@
 import type { Express } from "express";
-import { scenarioRouter } from "./scenario/routes/scenario.routes.js";
-import { graphRouter } from "./scenario/routes/graph.routes.js";
-import { detectClusterRouter } from "./detect/routes/cluster.routes.js";
-import { detectSignalsRouter } from "./detect/routes/signals.routes.js";
-import { detectRiskRouter } from "./detect/routes/risk.routes.js";
-import { investigateRouter } from "./investigate/routes/investigation.routes.js";
-import { dashboardRouter } from "./dashboard/routes/dashboard.routes.js";
-import { reportRouter } from "./dashboard/routes/report.routes.js";
-import { importRouter } from "./import/routes/import.routes.js";
+import { investigationSessionRouter } from "../core/session/session.routes.js";
+import { authRouter } from "./shared/auth/routes/auth.routes.js";
+import { requireAuth } from "./shared/auth/middleware/auth.middleware.js";
+import { scenarioRouter } from "./shared/scenario/routes/scenario.routes.js";
 
 export function registerFeatureRoutes(app: Express) {
-  app.use("/api", scenarioRouter);
-  app.use("/api", importRouter);
-  app.use("/api", graphRouter);
-  app.use("/api", detectClusterRouter);
-  app.use("/api", detectSignalsRouter);
-  app.use("/api", detectRiskRouter);
-  app.use("/api", investigateRouter);
-  app.use("/api", dashboardRouter);
-  app.use("/api", reportRouter);
+  app.use("/api", authRouter);
+  app.use("/api", requireAuth, investigationSessionRouter);
+  app.use("/api", requireAuth, scenarioRouter);
 }
