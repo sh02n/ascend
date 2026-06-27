@@ -3,9 +3,9 @@ import { detectRepository } from "../repositories/detect.repository.js";
 
 export const signalController = {
   async getSignal(req: Request, res: Response) {
-    const signal = await detectRepository.findSignalById(req.params.id);
+    const signalId = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+    const signal = await detectRepository.findSignalById(signalId);
 
-    // TODO: add signal enrichment and burst interpretation here.
     res.status(200).json(signal);
   },
 };

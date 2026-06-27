@@ -17,6 +17,7 @@ export function AppRouter() {
         <Route path="/detect" element={<DetectPage />} />
         <Route path="/investigate" element={<InvestigatePage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/report" element={<ReportPage />} />
         <Route path="/reports/:reportId" element={<ReportPage />} />
       </Route>
     </Routes>

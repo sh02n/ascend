@@ -1,12 +1,12 @@
 import { apiClient } from "../../../shared/lib/apiClient";
-import type { CaseSummary, DashboardSummary, ReportPayload } from "../types";
+import type { CaseSummary, DashboardSummary, InvestigationReport, ReportPayload } from "../types";
 
 export async function getDashboard() {
   return apiClient<DashboardSummary>("/dashboard");
 }
 
 export async function createReport(payload: ReportPayload) {
-  return apiClient<{ reportId: string }>("/report", {
+  return apiClient<{ reportId: string; caseId: string; report: InvestigationReport }>("/report", {
     method: "POST",
     body: JSON.stringify(payload),
   });
